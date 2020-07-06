@@ -25,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('', RedirectView.as_view(url='api/', permanent=True)),
+    path('', views.index, name='index'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

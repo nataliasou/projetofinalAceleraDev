@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from api.models import Log, User, ErrorInstances, Group
 
-# Create your views here.
+def index(request):
+    """View for home page"""
+
+
