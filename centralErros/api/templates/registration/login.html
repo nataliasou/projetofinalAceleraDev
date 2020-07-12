@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Senha ou email errado. Por favor, tente novamente.</p>
+{% endif %}
+{% if next %}
+{% if user.is_authenticated %}
+<p>Sua conta não tem permissão para acessar essa página.</p>
+{% else %}
+<p>Por favor, faça o login para acessar essa página.</p>
+{% endif %}
+{% endif %}
+<div class="container">
+    <form class="form-signin" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="text-center mb-4">
+            <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        </div>
+
+        <div class="form-label-group">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+            <label for="Email">{{ form.email }}</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+            <label for="inputPassword">{{ form.password }}</label>
+        </div>
+
+
+        <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="login">Entrar</button>
+        <a>
+            Criar uma conta
+        </a>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2020</p>
+    </form>
+</div>
+
+{% endblock %}

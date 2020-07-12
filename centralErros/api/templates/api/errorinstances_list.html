@@ -1,0 +1,83 @@
+{% extends "base_generic.html" %}
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand ">
+            <img src="http://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                 class="d-inline-block align-top" alt="" loading="lazy">
+            Central de erros
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSite">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSite">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'register-error' %}">Cadastrar novo erro<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+
+<nav class="navbar navbar-light" style="background-color: #F5FBEF;">
+    <ul>
+        <li class="breadcrumb-item"><a href="#">Pesquisa aqui</a></li>
+        <!--<li class="breadcrumb-item active" aria-current="page">Library</li>-->
+    </ul>
+</nav>
+
+<nav class="navbar navbar-light" style="background-color: #db9d47;">
+    <ul>
+        <form method="POST" action=“">
+            {% csrf_token %}
+        <td><a href="#">
+            <button type="button" class="btn btn-light">Arquivar</button>
+        </a></td>
+        <td></td>
+        <td>
+            <button type="submit" class="btn btn-light" name="delete" value="Deletar usuário">Apagar</button>
+        </td>
+    </ul>
+</nav>
+
+
+<table class="table table-sm table-hover" >
+    <thead>
+    <tr align="center">
+        <th scope="col"><input type="checkbox" value="select"></th>
+        <th scope="col">Level</th>
+        <th scope="col">Log</th>
+        <th scope="col">Eventos</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if errorinstances_list %}
+    {% for errorinstances in errorinstances_list %}
+    <tr>
+        <td scope="row" align="center"><input type="checkbox" value=""></td>
+        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.level }}</td>
+        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.description }} <br>
+            {{ errorinstances.origin }} <br>
+            {{ errorinstances.date }}
+        </td>
+        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.events }}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>There are no errors here.</p>
+    {% endif %}
+    </tbody>
+</table>
+
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+{% endblock %}

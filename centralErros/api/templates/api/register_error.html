@@ -1,0 +1,63 @@
+{% extends "base_generic.html" %}
+{% block importarcss %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/floating-labels.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <form class="form-signin" method='POST'>
+        {% csrf_token %}
+        <div class="text-center mb-4">
+            <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Cadastrar novo erro</h1>
+        </div>
+        <div class="form-label-group">
+            <input type="text" name="title" class="form-control" placeholder="Titulo" id="id_title" required autofocus>
+            <label for="id_title">Título </label>
+        </div>
+        <div class="form-label-group">
+            <textarea type="text" name="description" class="form-control" placeholder="Descrição" id="id_description"
+                      required autofocus></textarea>
+        </div>
+        <div class="form-label-group">
+            <textarea type="text" name="origin" class="form-control" placeholder="Origem" id="id_origin" required
+                      autofocus></textarea>
+        </div>
+        <div class="form-label-group">
+            <input type="text" name="date" class="form-control" value="2020-07-10 04:45:07" placeholder="Data"
+                   id="id_date" required autofocus>
+            <label for="id_date">Data e hora(MM/DD/AA hh:mm:ss) </label>
+        </div>
+        <div class="form-label-group">
+            <textarea type="text" name="details" class="form-control" placeholder="Detalhes" id="id_details" required
+                      autofocus></textarea>
+        </div>
+
+        <div class="form-label-group">
+            <select name="level" class="form-control" placeholder="Nivel" id="id_level" required autofocus>
+                <option value="Critical">Critical</option>
+                <option value="Debug">Debug</option>
+                <option value="Error">Error</option>
+                <option value="Warning">Warning</option>
+                <option value="Info">Info</option>
+            </select>
+        </div>
+
+        <div class="form-label-group">
+            <input type="number" name="events" class="form-control" placeholder="Eventos" id="id_events" required
+                   autofocus>
+            <label for="id_events">Eventos </label>
+        </div>
+        <div class="form-label-group">
+            <select name="type_error" class="form-control" placeholder="Tipo" id="id_type_error" required autofocus>
+                <option value="dev">desenvolvedor</option>
+                <option value="hom">homolgação</option>
+                <option value="prod">produção</option>
+            </select>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
+    </form>
+</div>
+
+{% endblock %}
+

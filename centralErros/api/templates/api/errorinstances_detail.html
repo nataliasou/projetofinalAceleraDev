@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+{% block menu %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand ">
+            <img src="http://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30"
+                 class="d-inline-block align-top" alt="" loading="lazy">
+            Central de erros
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSite">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSite">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Cadastrar novo erro<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Voltar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sair</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<nav class="navbar navbar-light " style="background-color: #db9d47;">
+    <div class="p-4">
+        <font color="white"><h1>Erro no {{ errorinstances.origin }} em {{ errorinstances.date }}</h1></font>
+    </div>
+</nav>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-8 col-lg-8 ml-auto mr-auto order-1" style='min-height:800px;'>
+        <h4>Titulo: </h4>
+        <p>{{ errorinstances.title }}</p>
+
+        <h4>Detalhes:</h4>
+        <p>{{ errorinstances.details }}</p> <!-- author detail link not yet defined -->
+    </div>
+
+    <div class="col-2 col-lg-2 mr-auto order-2" style='min-height:800px;'>
+        {% for copy in errorinstances.errorinstances_set.all %}
+        <p> {{copy.level}}</p>
+        <p><strong>Eventos:</strong><br> {{copy.events}}</p>
+        <p><strong>Coletado por:</strong><br> Token do usuário(a) {{copy.user_id.name}}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

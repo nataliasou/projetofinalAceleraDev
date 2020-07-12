@@ -1,0 +1,45 @@
+{% extends "base_generic.html" %}
+{% block importarcss %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/floating-labels.css' %}">
+{% endblock %}
+{% block content %}
+{% if form.errors %}
+<p>Alguma coisa está faltando, verifique o qu você digitou.</p>
+{% endif %}
+{% if next %}
+{% if user.is_authenticated %}
+<p>Sua conta não tem permissão para acessar essa página.</p>
+{% else %}
+<p>Por favor, faça o login para acessar essa página.</p>
+{% endif %}
+{% endif %}
+<div class="container">
+    <form class="form-signin" method="post">
+        {% csrf_token %}
+        <div class="text-center mb-4">
+            <img class="mb-4" src="../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Registrar</h1>
+        </div>
+        <div class="form-label-group">
+            <input type="text" name="name" class="form-control" placeholder="Nome" maxlength="50" id="id_name" required autofocus>
+            <label for="Nome">Nome </label>
+        </div>
+        <div class="form-label-group">
+            <input type="email" name="email" maxlength="254" class="form-control" placeholder="Email" id="id_email" required autofocus>
+            <label for="Email">Email </label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Senha" required>
+            <label for="id_password1">Senha</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Senha" required>
+            <label for="id_password2">Confirmar senha</label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Criar conta</button>
+    </form>
+</div>
+{% endblock %}

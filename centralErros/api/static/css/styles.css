@@ -1,0 +1,29 @@
+.bg-light {
+    background-color: #db9d47 !important;
+}
+
+.btn-primary {
+    background-color: #747578 !important;
+    border-color: #747578 !important;
+}
+.btn-primary:hover{
+    outline: none !important;
+    box-shadow: none;
+}
+
+
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
