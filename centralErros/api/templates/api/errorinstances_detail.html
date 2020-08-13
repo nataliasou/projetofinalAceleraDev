@@ -13,13 +13,13 @@
         <div class="collapse navbar-collapse" id="navbarSite">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Cadastrar novo erro<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'register-error' %}">Cadastrar novo erro<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Voltar</a>
+                    <a class="nav-link" href="{% url 'pesquisa' %}">Voltar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sair</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
                 </li>
             </ul>
         </div>
@@ -45,11 +45,12 @@
     </div>
 
     <div class="col-2 col-lg-2 mr-auto order-2" style='min-height:800px;'>
-        {% for copy in errorinstances.errorinstances_set.all %}
-        <p> {{copy.level}}</p>
-        <p><strong>Eventos:</strong><br> {{copy.events}}</p>
-        <p><strong>Coletado por:</strong><br> Token do usuário(a) {{copy.user_id.name}}</p>
-        {% endfor %}
+        {% if errorinstances.shelved %}
+               <h4><span class="badge badge-secondary">arquivado</span></h4>
+        {% endif %}
+        <p> {{errorinstances.level}}</p>
+        <p><strong>Eventos:</strong><br> {{errorinstances.events}}</p>
+        <p><strong>Coletado por:</strong><br> Token do usuário(a) {{errorinstances.user_id}}</p>
     </div>
 </div>
 {% endblock %}

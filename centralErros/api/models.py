@@ -58,7 +58,6 @@ class ErrorInstances(models.Model):
         help_text='Choose the error level'
     )
     events = models.IntegerField(null=True, blank=True, help_text='Enter the error code')
-
     TYPE_ERROR_STATUS = (
         ('dev', 'desenvolvedor'),
         ('hom', 'homolgação'),
@@ -72,8 +71,8 @@ class ErrorInstances(models.Model):
                                   help_text='Choose the error type'
                                   )
 
-    shelved = models.NullBooleanField(null=True, blank=True)
-    user_id = models.ForeignKey('accounts.User', on_delete=models.SET_NULL, null=True)
+    shelved = models.NullBooleanField(null=True, blank=True, default=False)
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=50, help_text='Enter the error title')
     description = models.TextField(help_text='Describe the error')
     origin = models.TextField(max_length=200,
@@ -82,6 +81,7 @@ class ErrorInstances(models.Model):
     details = models.TextField(help_text='Enter the error details')
 
     #error = models.ForeignKey('Log', on_delete=models.SET_NULL, null=True)
+
 
     def __str__(self):
         return self.level

@@ -27,30 +27,53 @@
 
 <nav class="navbar navbar-light" style="background-color: #F5FBEF;">
     <ul>
-        <li class="breadcrumb-item"><a href="#">Pesquisa aqui</a></li>
-        <!--<li class="breadcrumb-item active" aria-current="page">Library</li>-->
+        <form method="GET">
+            <div class="form-row">
+                <div class="col-md-2">
+                    <select name="search_type" class="form-control" placeholder="Tipo">
+                        <option value="">--------</option>
+                        <option value="dev">Desenvolvedor</option>
+                        <option value="hom">Homolgação</option>
+                        <option value="prod">Produção</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="search_order" class="form-control" placeholder="Ordenar por...">
+                        <option value="">--------</option>
+                        <option value="level">Nivel</option>
+                        <option value="freq">Frequência</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+
+                    <select name="search_topic" class="form-control" placeholder="Topico">
+                        <option value="">--------</option>
+                        <option value="description">Descrição</option>
+                        <option value="level">Nivel</option>
+                        <option value="origin">Origem</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="search_bar" class="form-control" placeholder="Pesquisar por...">
+                </div>
+                <div class="col-md-1">
+
+                    <button class="btn btn-primary" type="submit" name="search">
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!--<li class="breadcrumb-item"><a href="#">Pesquisa aqui</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Library</li>-->
     </ul>
 </nav>
-
-<nav class="navbar navbar-light" style="background-color: #db9d47;">
-    <ul>
-        <form method="POST" action=“">
-            {% csrf_token %}
-        <td><a href="#">
-            <button type="button" class="btn btn-light">Arquivar</button>
-        </a></td>
-        <td></td>
-        <td>
-            <button type="submit" class="btn btn-light" name="delete" value="Deletar usuário">Apagar</button>
-        </td>
-    </ul>
-</nav>
-
-
-<table class="table table-sm table-hover" >
+<form method="POST">
+<table class="table table-sm table-hover">
     <thead>
     <tr align="center">
-        <th scope="col"><input type="checkbox" value="select"></th>
+        <th scope="col">Ação</th>
+        <th scope="col"></th>
         <th scope="col">Level</th>
         <th scope="col">Log</th>
         <th scope="col">Eventos</th>
@@ -60,13 +83,21 @@
     {% if errorinstances_list %}
     {% for errorinstances in errorinstances_list %}
     <tr>
-        <td scope="row" align="center"><input type="checkbox" value=""></td>
-        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.level }}</td>
+        <td><a href="{% url 'delete-error' errorinstances.id %}" class="btn btn-secondary">excluir</a></td>
+        <td>{% if errorinstances.shelved %}
+               <span class="badge badge-secondary">arquivado</span>
+            {% else %}
+               <a href="{% url 'shelved-error' errorinstances.id %}" class="btn btn-secondary">arquivar</a>
+            {% endif %}
+        </td>
+        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.level }}
+        </td>
         <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.description }} <br>
             {{ errorinstances.origin }} <br>
             {{ errorinstances.date }}
         </td>
-        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.events }}</td>
+        <td onclick="window.location='{% url 'errorinstances-detail' errorinstances.id %}';" align="center">{{ errorinstances.events }}
+        </td>
     </tr>
     {% endfor %}
     {% else %}
@@ -74,10 +105,13 @@
     {% endif %}
     </tbody>
 </table>
+</form>
 
+<script>
 jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
+$(".clickable-row").click(function() {
+window.location = $(this).data("href");
+});
 });
 {% endblock %}
+</script>

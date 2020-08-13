@@ -11,8 +11,6 @@
     box-shadow: none;
 }
 
-
-
 .bd-placeholder-img {
   font-size: 1.125rem;
   text-anchor: middle;
@@ -26,4 +24,11 @@
   .bd-placeholder-img-lg {
     font-size: 3.5rem;
   }
+}
+
+.badge{
+  font-size: 100% !important;
+  font-weight: 400 !important;
+  padding: .375rem .70rem !important;
+  line-height: 1.5 !important;
 }
