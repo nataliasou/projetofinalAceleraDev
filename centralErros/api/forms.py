@@ -18,7 +18,11 @@ class RegisterErrorForm(forms.ModelForm):
 
     class Meta:
         model = ErrorInstances
-        fields = ('title', 'description', 'origin', 'date', 'details', 'level', 'events', 'type_error')  # pode botar o name aquiii
+        fields = ('title', 'description', 'origin', 'date', 'details', 'level', 'events', 'type_error')
+
+    def __init__(self, *args, **kwargs):
+        self.user_id = kwargs.pop('user_id')
+        super(RegisterErrorForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         erro = super(RegisterErrorForm, self).save(commit=False)

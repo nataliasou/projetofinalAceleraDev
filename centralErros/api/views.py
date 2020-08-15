@@ -83,9 +83,21 @@ class ErrorInstancesDetailView(generic.DetailView):
     model = ErrorInstances
 
 class RegisterErrorView(CreateView):
+    model = ErrorInstances
     form_class = RegisterErrorForm
     template_name = 'api/errorinstances_form.html'
     success_url = '/api/pesquisa/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user_id = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(RegisterErrorView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['user_id'] = self.request.user
+        return kwargs
 
 
 class DeleteErrorView(generic.DetailView):
