@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -153,4 +152,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 AUTH_USER_MODEL = 'accounts.User'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

@@ -38,10 +38,11 @@ class RegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        #user.active = False isso é pra mandar email de confirmação
+        user.is_active = False #isso é pra mandar email de confirmação
         if commit:
             user.save()
         return user
+
 
 class UserAdminCreationForm(forms.ModelForm):
     """
@@ -81,7 +82,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('name', 'email', 'password', 'active', 'admin')
+        fields = ('name', 'email', 'password', 'is_active', 'admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

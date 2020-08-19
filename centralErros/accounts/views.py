@@ -7,7 +7,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework.views import APIView
 
 from .forms import LoginForm, RegisterForm, UsersForm
-from .models import UsersEmail
+from .models import UsersEmail, User
 
 def users_register_view(request):
     form = UsersForm(request.POST or None)

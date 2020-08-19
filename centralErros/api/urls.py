@@ -10,7 +10,6 @@ urlpatterns = [
     url(r"^cadastrar/$", RegisterErrorView.as_view(), name='register-error'),
     re_path(r'(?P<id>[\w-]+)?/delete', DeleteErrorView.as_view(), name='delete-error'),
     re_path(r'(?P<id>[\w-]+)?/shelve', ShelvedView.as_view(), name='shelved-error'),
-    path("registrar/", RegisterView.as_view(), name='register-user'),
 ]
 
 #Add Django site authentication urls (for login, logout, password management)

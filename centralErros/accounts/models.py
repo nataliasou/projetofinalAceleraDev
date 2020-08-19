@@ -74,7 +74,7 @@ class User(AbstractBaseUser):
         max_length=254,
         unique=True,
     )
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False) # a admin user; non super-user
     admin = models.BooleanField(default=False) # a superuser
     # notice the absence of a "Password field", that is built in.
@@ -125,16 +125,16 @@ class User(AbstractBaseUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
-
-    @property
-    def is_active(self):
-        "Is the user active?"
-        return self.active
+    #
+    # @property
+    # def is_active(self):
+    #     "Is the user active?"
+    #     return self.active
 
 
 class UsersEmail(models.Model):
     email = models.EmailField()
-    active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     update = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
