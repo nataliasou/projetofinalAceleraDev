@@ -1,5 +1,3 @@
-# accounts.models.py
-
 from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
@@ -9,10 +7,12 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
 
 class UserManager(BaseUserManager):
     def create_user(self, name, email, password=None):
@@ -68,19 +68,22 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     objects = UserManager()
-    name = models.CharField(max_length=50, blank=True, null=True, help_text='Nome')
+    name = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text='Nome'
+    )
     email = models.EmailField(
         verbose_name='email address',
         max_length=254,
         unique=True,
     )
     is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False) # a admin user; non super-user
-    admin = models.BooleanField(default=False) # a superuser
-    # notice the absence of a "Password field", that is built in.
-
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name'] # Email & Password are required by default.
+    REQUIRED_FIELDS = ['name']
 
     def get_full_name(self):
         # The user is identified by their email address
@@ -102,10 +105,8 @@ class User(AbstractBaseUser):
         except User.DoesNotExist:
             return None
 
-    def __str__(self):              # __unicode__ on Python 2
+    def __str__(self):
         return self.email
-
-
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
@@ -125,11 +126,6 @@ class User(AbstractBaseUser):
     def is_admin(self):
         "Is the user a admin member?"
         return self.admin
-    #
-    # @property
-    # def is_active(self):
-    #     "Is the user active?"
-    #     return self.active
 
 
 class UsersEmail(models.Model):

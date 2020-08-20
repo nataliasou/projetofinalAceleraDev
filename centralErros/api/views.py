@@ -1,48 +1,34 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from api.models import ErrorInstances, Group
+from api.models import ErrorInstances
 from django.views.generic import CreateView
-from rest_framework.generics import ListCreateAPIView
 from .forms import RegisterErrorForm
-from rest_framework import filters
 from django.db.models import Q
-from django.db.models import Count
-
-
-import requests
-
-
-
-import datetime
-
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.views import generic
-from django.shortcuts import get_object_or_404
 from django.db.models import Count
 from .serializers import ErrorInstancesModelSerializers
 from rest_framework.renderers import TemplateHTMLRenderer
 
-def index(request):
 
+def index(request):
     return render(request, 'index.html')
 
 
 class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
     renderer_classes = [TemplateHTMLRenderer]
-    #template_name = 'api/errorinstances_list.html'
+    # template_name = 'api/errorinstances_list.html'
     login_url = reverse_lazy('/')
     model = ErrorInstances
     paginate_by = 10
     serializer_class = ErrorInstancesModelSerializers
 
-
-
     def get_context_data(self, **kwargs):
-        context = super(ErrorInstancesListView, self).get_context_data(**kwargs)
+        context = super(
+            ErrorInstancesListView,
+            self
+        ).get_context_data(**kwargs)
         return context
 
     def get_queryset(self):
@@ -57,7 +43,9 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
                 Q(description__icontains=search_bar) | Q(level__icontains=search_bar) | Q(origin__icontains=search_bar))
             if search_topic:
                 if search_topic == 'description':
-                    queryset = queryset.filter(description__icontains=search_bar)
+                    queryset = queryset.filter(
+                        description__icontains=search_bar
+                    )
                 elif search_topic == 'level':
                     queryset = queryset.filter(level__icontains=search_bar)
                 elif search_topic == 'origin':
@@ -72,15 +60,18 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
                     queryset = queryset.filter(type_error__icontains='prod')
             if search_order:
                 if search_order == 'freq':
-                    queryset = queryset.annotate(frequency=Count("event")).order_by('frequency')
+                    queryset = queryset.annotate(
+                        frequency=Count("event")).order_by('frequency')
                     print(queryset)
                 if search_order == 'level':
                     queryset = queryset.order_by('level')
         return queryset
 
+
 class ErrorInstancesDetailView(generic.DetailView):
     login_url = reverse_lazy('/')
     model = ErrorInstances
+
 
 class RegisterErrorView(CreateView):
     model = ErrorInstances
@@ -95,7 +86,10 @@ class RegisterErrorView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_form_kwargs(self, *args, **kwargs):
-        kwargs = super(RegisterErrorView, self).get_form_kwargs(*args, **kwargs)
+        kwargs = super(RegisterErrorView, self).get_form_kwargs(
+            *args,
+            **kwargs
+        )
         kwargs['user_id'] = self.request.user
         return kwargs
 

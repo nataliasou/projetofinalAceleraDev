@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -124,8 +124,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from datetime import timedelta
-
 # REST Framework settings
 
 REST_FRAMEWORK = {
@@ -153,4 +151,3 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 AUTH_USER_MODEL = 'accounts.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-

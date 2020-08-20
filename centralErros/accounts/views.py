@@ -1,18 +1,15 @@
 from django.views.generic import CreateView, FormView
-from django.contrib.auth import authenticate, login, get_user_model
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
 from django.utils.http import is_safe_url
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework.views import APIView
-
 from .forms import LoginForm, RegisterForm, UsersForm
-from .models import UsersEmail, User
+from .models import UsersEmail
+
 
 def users_register_view(request):
     form = UsersForm(request.POST or None)
     context = {
-        "form": form
+         "form": form
     }
     next_ = request.GET.get('next')
     next_post = request.POST.get('next')
@@ -26,6 +23,7 @@ def users_register_view(request):
         else:
             return redirect("/register/")
     return redirect("/register/")
+
 
 class LoginView(FormView):
     form_class = LoginForm

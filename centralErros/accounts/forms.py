@@ -2,12 +2,13 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth import get_user_model
 
-from .models import User
 
 User = get_user_model()
 
+
 class UsersForm(forms.Form):
     email = forms.EmailField()
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email')
@@ -24,7 +25,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('name', 'email',)  # pode botar o name aquiii
+        fields = ('name', 'email',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -38,7 +39,7 @@ class RegisterForm(forms.ModelForm):
         # Save the provided password in hashed format
         user = super(RegisterForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
-        user.is_active = False #isso é pra mandar email de confirmação
+        user.is_active = True
         if commit:
             user.save()
         return user
@@ -50,11 +51,12 @@ class UserAdminCreationForm(forms.ModelForm):
     fields, plus a repeated password.
     """
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation',
+                                widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('name', 'email',)#pode botar o name aquiii
+        fields = ('name', 'email',)
 
     def clean_password2(self):
         # Check that the two password entries match

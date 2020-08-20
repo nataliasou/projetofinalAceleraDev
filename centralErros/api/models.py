@@ -1,9 +1,5 @@
 from django.db import models
-
 import uuid
-from django.core import validators
-
-from django.urls import reverse
 from accounts.models import User
 from django.conf import settings
 
@@ -27,7 +23,11 @@ class ErrorInstances(models.Model):
         default='Error',
         help_text='Choose the error level'
     )
-    events = models.IntegerField(null=True, blank=True, help_text='Enter the error code')
+    events = models.IntegerField(
+        null=True,
+        blank=True,
+        help_text='Enter the error code'
+    )
     TYPE_ERROR_STATUS = (
         ('dev', 'desenvolvedor'),
         ('hom', 'homolgação'),
@@ -42,7 +42,11 @@ class ErrorInstances(models.Model):
                                   )
 
     shelved = models.NullBooleanField(null=True, blank=True, default=False)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True
+    )
     title = models.CharField(max_length=50, help_text='Enter the error title')
     description = models.TextField(help_text='Describe the error')
     origin = models.TextField(max_length=200,
