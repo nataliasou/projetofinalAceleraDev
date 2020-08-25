@@ -32,38 +32,38 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         # Filtrar dados
-        queryset = ErrorInstances.objects.all()
+        queryset = ErrorInstances.objects.get_queryset().order_by('id')
         search_bar = self.request.GET.get('search_bar')
         search_type = self.request.GET.get('search_type')
         search_order = self.request.GET.get('search_order')
         search_topic = self.request.GET.get('search_topic')
         if search_bar is not None:
             queryset = queryset.filter(
-                Q(description__icontains=search_bar) | Q(level__icontains=search_bar) | Q(origin__icontains=search_bar))
+                Q(description__icontains=search_bar) | Q(level__icontains=search_bar) | Q(origin__icontains=search_bar)).order_by('id')
             if search_topic:
                 if search_topic == 'description':
                     queryset = queryset.filter(
                         description__icontains=search_bar
-                    )
+                    ).order_by('id')
                 elif search_topic == 'level':
-                    queryset = queryset.filter(level__icontains=search_bar)
+                    queryset = queryset.filter(level__icontains=search_bar).order_by('id')
                 elif search_topic == 'origin':
-                    queryset = queryset.filter(origin__icontains=search_bar)
+                    queryset = queryset.filter(origin__icontains=search_bar).order_by('id')
             if search_type:
                 if search_type == 'dev':
-                    queryset = queryset.filter(type_error__icontains='dev')
+                    queryset = queryset.filter(type_error__icontains='dev').order_by('id')
                     print(queryset)
                 if search_type == 'hom':
-                    queryset = queryset.filter(type_error__icontains='hom')
+                    queryset = queryset.filter(type_error__icontains='hom').order_by('id')
                 if search_type == 'prod':
-                    queryset = queryset.filter(type_error__icontains='prod')
+                    queryset = queryset.filter(type_error__icontains='prod').order_by('id')
             if search_order:
                 if search_order == 'freq':
                     queryset = queryset.annotate(
                         frequency=Count("event")).order_by('frequency')
                     print(queryset)
                 if search_order == 'level':
-                    queryset = queryset.order_by('level')
+                    queryset = queryset.order_by('level').order_by('id')
         return queryset
 
 

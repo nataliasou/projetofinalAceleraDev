@@ -64,8 +64,6 @@
                 </div>
             </div>
         </form>
-        <!--<li class="breadcrumb-item"><a href="#">Pesquisa aqui</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Library</li>-->
     </ul>
 </nav>
 <form method="POST">
@@ -106,12 +104,30 @@
     </tbody>
 </table>
 </form>
-
 <script>
 jQuery(document).ready(function($) {
 $(".clickable-row").click(function() {
 window.location = $(this).data("href");
 });
 });
-{% endblock %}
 </script>
+{% endblock %}
+{% block pagination %}
+    {% if is_paginated %}
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+        <li class="page-item">
+            {% if page_obj.has_previous %}
+            <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Anterior</a>
+        {% endif %}
+        </li>
+        <li class="page-item"><a class="page-link">Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</a></li>
+        <li class="page-item">
+        {% if page_obj.has_next %}
+            <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Próximo</a>
+                {% endif %}
+        </li>
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
