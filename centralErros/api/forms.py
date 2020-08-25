@@ -8,7 +8,7 @@ class RegisterErrorForm(forms.ModelForm):
     """
     title = forms.CharField(label='Titulo', widget=forms.TextInput)
     description = forms.CharField(label='Descrição', widget=forms.Textarea)
-    origin = forms.CharField(label='Origem', widget=forms.Textarea)
+    origin = forms.GenericIPAddressField(label='Origem', widget=forms.Textarea)
     date = forms.DateTimeField(label='Data', widget=forms.DateTimeInput)
     details = forms.CharField(label='Detalhes', widget=forms.Textarea)
     level = forms.ChoiceField(

@@ -15,7 +15,7 @@ class ErrorInstancesModelTest(TestCase):
             shelved=False,
             title='Erro Teste',
             description='blablalablablablablablablabla fiffifififi fofofofofo',
-            origin='Teste',
+            origin='11.22.33.44',
             date='2020-07-05 14:30:43',
             details='Detalhes são importantes',
         )
@@ -81,7 +81,11 @@ class ErrorInstancesModelTest(TestCase):
     def test_origin_length(self):
         errorInstances = ErrorInstances.objects.get()
         max_length = errorInstances._meta.get_field('origin').max_length
-        self.assertEquals(max_length, 200)
+        self.assertEquals(max_length, 39)
+
+    def test_origin_IP(self):
+        errorInstances = ErrorInstances.objects.get()
+        self.assertEquals(errorInstances.origin, '11.22.33.44')
 
     def test_date_label(self):
         errorInstances = ErrorInstances.objects.get()

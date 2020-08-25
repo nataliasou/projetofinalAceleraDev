@@ -1,0 +1,193 @@
+#%RAML 1.0
+---
+title: Central de erros
+version: v1
+baseUri: http://api.centralerros.com/{version}
+mediaType: application/json
+securitySchemes:
+  JWT:
+    description: Token JWT é utilizado para autenticaçao
+    type: x-jwt
+    describedBy:
+      headers:
+        Authorization:
+          type: string
+          required: true
+      responses:
+        401:
+          description: |
+            Token invalido ou expirado.
+        403:
+          description: |
+            Bad JWT request
+    settings:
+      signatures : ['HMAC-SHA256']
+
+types:
+  Auth:
+    type: object
+    discriminator: token
+    properties:
+      token: string
+  ErrorInstances:
+    type: object
+    discriminator: id
+    properties:
+      id: number
+      level:
+        type: string
+        maxLength: 20
+      events:
+        type: number
+      type_error:
+        type: string
+        maxLength: 20
+      shelved:
+        type: boolean
+      user_id:
+        type: number
+      title:
+        type: string
+        maxLength: 50
+      description:
+        type: string
+      origin:
+        type: string
+        maxLength: 200
+      date:
+        type: DateTime
+      details:
+        type: string
+    example:
+      id: 1
+      level: Debug
+      events: 200
+      type_error: Produção
+      shelved: True
+      user_id: 2
+      title: TituloDoEvento
+      description: DescricaoDoEvento
+      origin: 198.168.0.1
+      date: 2020-07-10 04:45:07
+      details: Detalhe do evento
+traits:
+  dataValidation:
+    responses:
+      400:
+        description: Quando avalidação falha acontece um BadRequest
+        body:
+          application/json: |
+            {"error": "Bad Request"}
+/auth/token:
+  post:
+    description: Criar um token
+    body:
+      application/json:
+        properties:
+          name: string
+          password: string
+    responses:
+      201:
+        body:
+          application/json: Auth[]
+      400:
+        body:
+          application/json: |
+            {"error": "Bad Request"}
+/errorinstances:
+  description: Dados dos erros
+  get:
+    description: Pega todos os erros.
+    securedBy: [JWT]
+    responses:
+      200:
+        body:
+          application/json: ErrorInstances[]
+  post:
+    is: [dataValidation]
+    securedBy: [JWT]
+    description: Adiciona um erro.
+    body:
+      application/json:
+        example: |
+          { "id": 3,
+            "level": "Warning",
+            "events": 404,
+            "type_error": "hom",
+            "shelved": False,
+            "user_id": 1,
+            "title": "Pagina não encontrada{error}",
+            "description": "A página não foi encontrada!",
+            "origin": "192.168.1.2",
+            "date": "2020-07-10 04:45:07",
+            "details": "Detalhes são importantes",
+            }
+    responses:
+      201:
+        description: Retorna o novo erro cadastrado.
+        body:
+          application/json: |
+            {"message": "Created"}
+      401:
+        body:
+          application/json: |
+            {"message": "Unauthorized"}
+      404:
+        body:
+          application/json: |
+            {"error": "Not Found"}
+  /{id}:
+    get:
+      securedBy: [JWT]
+      description: Pega um erro especifico.
+      responses:
+        200:
+          description: Retorna um erro especifico
+          body:
+            application/json: ErrorInstances[]
+        401:
+          body:
+            application/json: |
+              {"message": "Unauthorized"}
+        404:
+          body:
+            application/json: |
+              {"error": "Not Found"}
+    put:
+      is: [dataValidation]
+      securedBy: [JWT]
+      description: Atualiza um erro que já criado.
+      responses:
+        200:
+          description: retorna um erro atualizado.
+          body:
+            application/json: ErroInstances[]
+        401:
+          body:
+            application/json: |
+              {"message": "Unauthorized"}
+        404:
+          body:
+            application/json: |
+              {"error": "Not Found"}
+    delete:
+      securedBy: [JWT]
+      description: Deleta um erro.
+      responses:
+        200:
+          body:
+            application/json: |
+              {"message": "Ok"}
+        204:
+          description: deletado.
+          body:
+            application/json: |
+             {"message": "No content"}
+        401:
+          body:
+            application/json: |
+              {"message": "Unauthorized"}
+        404:
+          body:
+            application/json: |
+              {"error": "Not Found"}

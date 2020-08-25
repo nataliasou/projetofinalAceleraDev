@@ -3,9 +3,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand ">
-            <img src="http://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30"
-                 class="d-inline-block align-top" alt="" loading="lazy">
-            Central de erros
+            <font color="white">Central de erros</font>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSite">
             <span class="navbar-toggler-icon"></span>
@@ -41,7 +39,7 @@
                     <select name="search_order" class="form-control" placeholder="Ordenar por...">
                         <option value="">--------</option>
                         <option value="level">Nivel</option>
-                        <option value="freq">Frequência</option>
+<!--                        <option value="freq">Frequência</option>-->
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -83,7 +81,7 @@
     <tr>
         <td><a href="{% url 'delete-error' errorinstances.id %}" class="btn btn-secondary">excluir</a></td>
         <td>{% if errorinstances.shelved %}
-               <span class="badge badge-secondary">arquivado</span>
+               <span class="badge badge-dark">arquivado</span>
             {% else %}
                <a href="{% url 'shelved-error' errorinstances.id %}" class="btn btn-secondary">arquivar</a>
             {% endif %}

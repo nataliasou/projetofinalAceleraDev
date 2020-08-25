@@ -49,8 +49,8 @@ class ErrorInstances(models.Model):
     )
     title = models.CharField(max_length=50, help_text='Enter the error title')
     description = models.TextField(help_text='Describe the error')
-    origin = models.TextField(max_length=200,
-                              help_text='Describe the error origin')
+    origin = models.GenericIPAddressField('Describe the error origin',
+                                 protocol='IPV4', max_length=39)
     date = models.DateTimeField(null=True, blank=True)
     details = models.TextField(help_text='Enter the error details')
 

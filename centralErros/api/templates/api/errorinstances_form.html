@@ -22,6 +22,11 @@
         <div class="form-label-group">
             <textarea type="text" name="origin" class="form-control" placeholder="Origem" id="id_origin" required
                       autofocus></textarea>
+            {% if form.origin.errors %}
+            <div class="alert alert-danger" role="alert">
+                Digite o IP corretamente.
+            </div>
+        {% endif %}
         </div>
         <div class="form-label-group">
             <input type="text" name="date" class="form-control" value="2020-07-10 04:45:07" placeholder="Data"

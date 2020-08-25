@@ -58,10 +58,10 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
                 if search_type == 'prod':
                     queryset = queryset.filter(type_error__icontains='prod').order_by('id')
             if search_order:
-                if search_order == 'freq':
-                    queryset = queryset.annotate(
-                        frequency=Count("event")).order_by('frequency')
-                    print(queryset)
+                # if search_order == 'freq':
+                #     queryset = queryset.annotate(
+                #         frequency=Count("event")).order_by('frequency')
+                #     print(queryset)
                 if search_order == 'level':
                     queryset = queryset.order_by('level').order_by('id')
         return queryset
