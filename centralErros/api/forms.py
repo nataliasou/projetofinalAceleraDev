@@ -7,7 +7,7 @@ class RegisterErrorForm(forms.ModelForm):
         A form for add new errors.
     """
     title = forms.CharField(label='Titulo', widget=forms.TextInput)
-    description = forms.CharField(label='Decrição', widget=forms.Textarea)
+    description = forms.CharField(label='Descrição', widget=forms.Textarea)
     origin = forms.CharField(label='Origem', widget=forms.Textarea)
     date = forms.DateTimeField(label='Data', widget=forms.DateTimeInput)
     details = forms.CharField(label='Detalhes', widget=forms.Textarea)

@@ -18,8 +18,7 @@ def index(request):
 
 class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
     renderer_classes = [TemplateHTMLRenderer]
-    # template_name = 'api/errorinstances_list.html'
-    login_url = reverse_lazy('/')
+    login_url = reverse_lazy('login')
     model = ErrorInstances
     paginate_by = 10
     serializer_class = ErrorInstancesModelSerializers
@@ -68,16 +67,17 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
         return queryset
 
 
-class ErrorInstancesDetailView(generic.DetailView):
-    login_url = reverse_lazy('/')
+class ErrorInstancesDetailView(LoginRequiredMixin, generic.DetailView):
+    login_url = reverse_lazy('login')
     model = ErrorInstances
 
 
-class RegisterErrorView(CreateView):
+class RegisterErrorView(LoginRequiredMixin, CreateView):
     model = ErrorInstances
     form_class = RegisterErrorForm
     template_name = 'api/errorinstances_form.html'
     success_url = '/api/pesquisa/'
+    login_url = reverse_lazy('login')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
@@ -94,14 +94,14 @@ class RegisterErrorView(CreateView):
         return kwargs
 
 
-class DeleteErrorView(generic.DetailView):
+class DeleteErrorView(LoginRequiredMixin, generic.DetailView):
     def get(self, request, id):
         error_delete = ErrorInstances.objects.get(id=id)
         error_delete.delete()
         return redirect('pesquisa')
 
 
-class ShelvedView(generic.DetailView):
+class ShelvedView(LoginRequiredMixin, generic.DetailView):
     def get(self, request, id):
         error_shelve = ErrorInstances.objects.get(id=id)
         error_shelve.shelved = True

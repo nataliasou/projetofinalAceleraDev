@@ -56,17 +56,3 @@ class ErrorInstances(models.Model):
 
     def __str__(self):
         return self.level
-
-
-class Group(models.Model):
-    # Class representing the group model
-    name = models.CharField(max_length=20, help_text='Enter the group name')
-
-    def __str__(self):
-        return self.name
-
-
-class GroupUser(models.Model):
-    # Representing group user
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

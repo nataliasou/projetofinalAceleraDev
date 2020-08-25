@@ -1,11 +1,6 @@
 from django.contrib import admin
 
-from api.models import ErrorInstances, Group
-
-# @admin.register(Log)
-# class LogModeEvent(admin.ModelAdmin):
-#     list_display = ('title', 'date')
-
+from api.models import ErrorInstances
 
 @admin.register(ErrorInstances)
 class ErrorInstancesModeEvent(admin.ModelAdmin):
@@ -19,6 +14,3 @@ class ErrorInstancesModeEvent(admin.ModelAdmin):
         'user_id'
     )
     list_filter = ('level', 'events')
-
-
-admin.site.register(Group)
