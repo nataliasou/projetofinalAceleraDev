@@ -4,9 +4,6 @@
 <link rel="stylesheet" href="{% static 'css/floating-labels.css' %}">
 {% endblock %}
 {% block content %}
-{% if form.errors %}
-<p>Alguma coisa está faltando, verifique o qu você digitou.</p>
-{% endif %}
 {% if next %}
 {% if user.is_authenticated %}
 <p>Sua conta não tem permissão para acessar essa página.</p>
@@ -25,11 +22,20 @@
             <input type="text" name="name" class="form-control" placeholder="Nome" maxlength="50" id="id_name" required autofocus>
             <label for="Nome">Nome </label>
         </div>
+        {% if form.name.errors %}
+        <div class="alert alert-danger" role="alert">
+            Algo deu errado no seu nome. Por favor, tente novamente.
+        </div>
+        {% endif %}
         <div class="form-label-group">
             <input type="email" name="email" maxlength="254" class="form-control" placeholder="Email" id="id_email" required autofocus>
             <label for="Email">Email </label>
         </div>
-
+        {% if form.email.errors %}
+        <div class="alert alert-danger" role="alert">
+            Algo deu errado no seu email. Por favor, tente novamente.
+        </div>
+        {% endif %}
         <div class="form-label-group">
             <input type="password" name="password1" id="id_password1" class="form-control" placeholder="Senha" required>
             <label for="id_password1">Senha</label>
@@ -39,6 +45,16 @@
             <input type="password" name="password2" id="id_password2" class="form-control" placeholder="Senha" required>
             <label for="id_password2">Confirmar senha</label>
         </div>
+        {% if form.password2.errors %}
+        <div class="alert alert-danger" role="alert">
+            Senhas não estão iguais. Por favor, tente novamente.
+        </div>
+        {% endif %}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Algo deu errado. Por favor, tente novamente.
+        </div>
+        {% endif %}
         <button class="btn btn-lg btn-primary btn-block" type="submit">Criar conta</button>
     </form>
 </div>

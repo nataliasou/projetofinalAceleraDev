@@ -4,9 +4,6 @@
 <link rel="stylesheet" href="{% static 'css/floating-labels.css' %}">
 {% endblock %}
 {% block content %}
-{% if form.errors %}
-<p>Senha ou email errado. Por favor, tente novamente.</p>
-{% endif %}
 {% if next %}
 {% if user.is_authenticated %}
 <p>Sua conta não tem permissão para acessar essa página.</p>
@@ -25,14 +22,23 @@
         <div class="form-label-group">
             <input type="email" name="email" class="form-control" placeholder="Email" id="id_email" required autofocus>
             <label for="Email">Email </label>
+            {% if form.email.errors %}
+            <div class="alert alert-danger" role="alert">
+                Email errado. Por favor, tente novamente.
+            </div>
+        {% endif %}
         </div>
 
         <div class="form-label-group">
             <input type="password" name="password" id="id_password" class="form-control" placeholder="Senha" required>
             <label for="inputPassword">Senha</label>
         </div>
-
-        <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Algo deu errado. Por favor, tente novamente.
+        </div>
+        {% endif %}
+        <p class="text-right"> <a class="text-right" href="{% url 'password_reset' %}">Esqueci minha senha</a></p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         <a class="nav-link" href="{% url 'register' %}">Criar conta</a>
         <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
