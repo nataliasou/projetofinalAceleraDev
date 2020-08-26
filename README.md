@@ -26,7 +26,7 @@ $ git clone <git@github.com:nataliasou/projetofinalAceleraDev.git>
 
 # Abra o projeto no editor
 
-# Instale o requirements.txt
+# Instale o requirements.txt (esses comandos são para windows)
 virtualenv venv -p python3
 venv\Scripts\activate.bat
 pip install -r requirements.txt
