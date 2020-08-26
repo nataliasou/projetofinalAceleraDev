@@ -76,7 +76,7 @@ class ErrorInstancesModelTest(TestCase):
     def test_origin_label(self):
         errorInstances = ErrorInstances.objects.get()
         field_label = errorInstances._meta.get_field('origin').verbose_name
-        self.assertEquals(field_label, 'origin')
+        self.assertEquals(field_label, 'Describe the error origin')
 
     def test_origin_length(self):
         errorInstances = ErrorInstances.objects.get()
