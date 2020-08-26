@@ -7,10 +7,18 @@ User = get_user_model()
 
 
 class UsersForm(forms.Form):
+    """
+    Show a form with the email to the user.
+    Is related to :model: 'accounts.User'.
+    """
     email = forms.EmailField()
 
 
 class LoginForm(forms.Form):
+    """
+    Show a form with the email and password so the user can login.
+    Is related to :model: 'accounts.User'.
+    """
     email = forms.EmailField(label='Email')
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -19,7 +27,7 @@ class RegisterForm(forms.ModelForm):
     """
         A form for creating new users. Includes all the required
         fields, plus a repeated password.
-        """
+    """
     password1 = forms.CharField(label='Senha', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirmação de senha', widget=forms.PasswordInput)
 

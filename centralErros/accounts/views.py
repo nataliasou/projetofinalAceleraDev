@@ -7,6 +7,10 @@ from .models import UsersEmail
 
 
 def users_register_view(request):
+    """
+        Register a new user.
+        Is related to :model:'accounts.User'.
+    """
     form = UsersForm(request.POST or None)
     context = {
          "form": form
@@ -26,12 +30,20 @@ def users_register_view(request):
 
 
 class LoginView(FormView):
+    """
+    Login the user.
+    Is related to :model:'accounts.User'.
+    """
     form_class = LoginForm
     success_url = '/api/pesquisa/'
     template_name = 'accounts/login.html'
     default_next = '/api/pesquisa/'
 
     def form_valid(self, form):
+        """
+        Show the form so the user can login.
+        Is related to :model:'accounts.User'.
+        """
         request = self.request
         next_ = request.GET.get('next')
         next_post = request.POST.get('next')
@@ -53,6 +65,10 @@ class LoginView(FormView):
 
 
 class RegisterView(CreateView):
+    """
+    Is a view to register a new user.
+    Is related to :model:'accounts.User'.
+    """
     form_class = RegisterForm
     template_name = 'accounts/register.html'
     success_url = '/login/'

@@ -13,10 +13,18 @@ from rest_framework.renderers import TemplateHTMLRenderer
 
 
 def index(request):
+    """
+    Show the initial page with some instructions.
+    """
     return render(request, 'index.html')
 
 
 class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
+    """
+    List all the registered errors with the filter's form.
+    It shows the option to delete and shelve the error.
+    Is related to :model: 'api.ErrorInstances'.
+    """
     renderer_classes = [TemplateHTMLRenderer]
     login_url = reverse_lazy('login')
     model = ErrorInstances
@@ -31,7 +39,13 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        # Filtrar dados
+        """
+        Search errors with some filters,
+        related to :model:'api.ErrorInstances'
+
+        **Template:**
+        :template:'api/errorinstances_list.html'
+        """
         queryset = ErrorInstances.objects.get_queryset().order_by('id')
         search_bar = self.request.GET.get('search_bar')
         search_type = self.request.GET.get('search_type')
@@ -68,11 +82,19 @@ class ErrorInstancesListView(LoginRequiredMixin, generic.ListView):
 
 
 class ErrorInstancesDetailView(LoginRequiredMixin, generic.DetailView):
+    """
+    Show the details of a particular error.
+    Is related to :model:'api.ErrorInstances'.
+    """
     login_url = reverse_lazy('login')
     model = ErrorInstances
 
 
 class RegisterErrorView(LoginRequiredMixin, CreateView):
+    """
+        Show the form to register a new error.
+        Is related to :model:'api.ErrorInstances'.
+    """
     model = ErrorInstances
     form_class = RegisterErrorForm
     template_name = 'api/errorinstances_form.html'
@@ -80,12 +102,20 @@ class RegisterErrorView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
 
     def form_valid(self, form):
+        """
+            This function save the data with the user token.
+            Is related to :model:'api.ErrorInstances'.
+            """
         self.object = form.save(commit=False)
         self.object.user_id = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
     def get_form_kwargs(self, *args, **kwargs):
+        """
+            This function request and return the user token.
+            Is related to :model:'api.ErrorInstances'.
+        """
         kwargs = super(RegisterErrorView, self).get_form_kwargs(
             *args,
             **kwargs
@@ -95,14 +125,30 @@ class RegisterErrorView(LoginRequiredMixin, CreateView):
 
 
 class DeleteErrorView(LoginRequiredMixin, generic.DetailView):
+    """
+        Delete a particular error.
+        Is related to :model:'api.ErrorInstances'.
+    """
     def get(self, request, id):
+        """
+            This function take the error id and delete.
+            Is related to :model:'api.ErrorInstances'.
+        """
         error_delete = ErrorInstances.objects.get(id=id)
         error_delete.delete()
         return redirect('pesquisa')
 
 
 class ShelvedView(LoginRequiredMixin, generic.DetailView):
+    """
+        Shelve s particular error.
+        Is related to :model:'api.ErrorInstances'.
+    """
     def get(self, request, id):
+        """
+            Change the value from false to true.
+            Is related to :model:'api.ErrorInstances'.
+        """
         error_shelve = ErrorInstances.objects.get(id=id)
         error_shelve.shelved = True
         error_shelve.save()

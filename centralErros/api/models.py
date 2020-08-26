@@ -5,6 +5,10 @@ from django.conf import settings
 
 
 class ErrorInstances(models.Model):
+    """
+    This is all the date we need to register and see an error.
+    Is related to :model: 'accounts.User'.
+    """
     # Class representing the Error Event model
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this error")
