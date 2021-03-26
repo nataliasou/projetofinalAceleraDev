@@ -40,7 +40,7 @@ Pygments==2.6.1
 PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.1
-PyYAML==5.1.2
+PyYAML==5.4
 redis==3.5.3
 requests==2.23.0
 requests-mock==1.8.0
