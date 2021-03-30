@@ -36,7 +36,7 @@ psycopg2==2.8.5
 py==1.5.3
 pycodestyle==2.6.0
 pyflakes==2.2.0
-Pygments==2.6.1
+Pygments==2.7.4
 PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.1
