@@ -48,7 +48,7 @@ six==1.11.0
 snowballstemmer==2.0.0
 sqlparse==0.3.1
 traitlets==4.3.3
-urllib3==1.25.9
+urllib3==1.26.5
 virtualenv==20.0.20
 wcwidth==0.2.4
 whitenoise==5.1.0
