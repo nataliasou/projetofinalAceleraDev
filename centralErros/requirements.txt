@@ -14,7 +14,7 @@ dj-database-url==0.5.0
 Django==2.2.13
 django-betterforms==1.2
 django-redis==4.12.1
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.4.0
 docutils==0.16
 filelock==3.0.12
@@ -33,14 +33,14 @@ pickleshare==0.7.5
 pluggy==0.6.0
 prompt-toolkit==3.0.5
 psycopg2==2.8.5
-py==1.5.3
+py==1.10.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
-Pygments==2.6.1
+Pygments==2.7.4
 PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.1
-PyYAML==5.1.2
+PyYAML==5.4
 redis==3.5.3
 requests==2.23.0
 requests-mock==1.8.0
@@ -48,7 +48,7 @@ six==1.11.0
 snowballstemmer==2.0.0
 sqlparse==0.3.1
 traitlets==4.3.3
-urllib3==1.25.9
+urllib3==1.26.5
 virtualenv==20.0.20
 wcwidth==0.2.4
 whitenoise==5.1.0
