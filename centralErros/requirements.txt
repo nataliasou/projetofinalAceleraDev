@@ -41,7 +41,7 @@ PyJWT==1.7.1
 pyparsing==2.4.7
 pytz==2020.1
 PyYAML==5.4
-redis==3.5.3
+redis==4.4.4
 requests==2.23.0
 requests-mock==1.8.0
 six==1.11.0
