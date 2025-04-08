@@ -45,18 +45,19 @@ class ErrorInstances(models.Model):
                                   help_text='Choose the error type'
                                   )
 
-    shelved = models.NullBooleanField(null=True, blank=True, default=False)
+    shelved = models.BooleanField(null=True, blank=True, default=False)
     user_id = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True
     )
-    title = models.CharField(max_length=50, help_text='Enter the error title')
-    description = models.TextField(help_text='Describe the error')
+    title = models.CharField(max_length=50, help_text='Enter the error title',  default='')
+    description = models.TextField(help_text='Describe the error', null=False, default='No description provided')
     origin = models.GenericIPAddressField('Describe the error origin',
-                                 protocol='IPV4', max_length=39)
+                                 protocol='IPV4', max_length=39,
+                                 default='0.0.0.0')
     date = models.DateTimeField(null=True, blank=True)
-    details = models.TextField(help_text='Enter the error details')
+    details = models.TextField(help_text='Enter the error details', default='No description provided')
 
     def __str__(self):
         return self.level

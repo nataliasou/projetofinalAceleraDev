@@ -7,7 +7,6 @@ from api.views import (
     DeleteErrorView,
     ShelvedView
 )
-from django.conf.urls import url
 
 urlpatterns = [
     path('', index, name='index'),
@@ -17,7 +16,8 @@ urlpatterns = [
         ErrorInstancesDetailView.as_view(),
         name='errorinstances-detail'
     ),
-    url(r"^cadastrar/$", RegisterErrorView.as_view(), name='register-error'),
+    # Usando re_path para cadastrar
+    re_path(r"^cadastrar/$", RegisterErrorView.as_view(), name='register-error'),
     re_path(
         r'(?P<id>[\w-]+)?/delete',
         DeleteErrorView.as_view(),
@@ -30,7 +30,6 @@ urlpatterns = [
     ),
 ]
 
-# Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]

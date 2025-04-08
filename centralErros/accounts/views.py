@@ -1,7 +1,6 @@
 from django.views.generic import CreateView, FormView
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
-from django.utils.http import is_safe_url
 from .forms import LoginForm, RegisterForm, UsersForm
 from .models import UsersEmail
 
