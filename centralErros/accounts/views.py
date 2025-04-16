@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from .forms import LoginForm, RegisterForm, UsersForm
 from .models import UsersEmail
+from django.utils.http import url_has_allowed_host_and_scheme
 
 
 def users_register_view(request):
@@ -56,7 +57,7 @@ class LoginView(FormView):
                 del request.session['users_email_id']
             except:
                 pass
-            if is_safe_url(redirect_path, request.get_host()):
+            if url_has_allowed_host_and_scheme(redirect_path, request.get_host(), require_https=False):
                 return redirect(redirect_path)
             else:
                 return redirect("/api/pesquisa/")
