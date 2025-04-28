@@ -19,7 +19,7 @@ djangorestframework-simplejwt==4.3.0
 docutils==0.16
 filelock==3.0.12
 imagesize==1.2.0
-ipython==7.15.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.17.0
 MarkupSafe==1.1.1
